@@ -1,0 +1,65 @@
+package edu.ucsb.cs56.W11.mrochin.lab05;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
+/**
+ * The test class CardTest, to test the Card class
+ *
+ * @author Martin Rey Rochin Inda
+ * @version lab05 for CS56, Winter 2011
+ * @see Card
+ */
+public class CardTest 
+{
+   @Test public void testTwoArgConstructor1()
+   {
+       // The constructor should set the suit and the rank (value)
+       // of the card using the respective arguments
+
+        Card JOfSpades = new Card( 'S', 'J' );
+        assertEquals( 'S', JOfSpades.getSuit());
+	assertEquals( 'J', JOfSpades.getValue());
+    }
+
+   @Test public void testTwoArgConstructor2()
+   {
+       // The constructor should set the suit and the rank (value)
+       // of the card using the respective arguments
+        Card FourOfHearts = new Card( 'H', '4' );
+        assertEquals( 'H', FourOfHearts.getSuit());
+        assertEquals( '4', FourOfHearts.getValue());
+   }
+
+   @Test public void testTwoArgConstructor3()
+   {
+       // The constructor should set the suit and the rank (value)
+       // of the card using the respective arguments    
+
+       //special case, T used for ten
+       Card TenOfClubs = new Card( 'C', 'T' );
+       assertEquals( 'C', TenOfClubs.getSuit());
+       assertEquals( 'T', TenOfClubs.getValue());
+   }
+	
+   @Test public void testToString1()
+   //format 
+   // "5H" "3C" "AS" value + suit 
+    {
+        Card AceOfHearts = new Card( 'H', 'A' );
+	assertEquals("AH",AceOfHearts.toString());
+    }
+    
+   @Test public void testToString2()
+   {
+       Card JOfSpades = new Card( 'S', 'J' );
+       assertEquals("JS", JOfSpades.toString());
+   }
+    
+   @Test public void testToString3()
+    {
+  	//special case, T used for ten
+        Card TenOfClubs = new Card( 'C', 'T' );
+	assertEquals("TC",TenOfClubs.toString());
+    }
+    
+}
