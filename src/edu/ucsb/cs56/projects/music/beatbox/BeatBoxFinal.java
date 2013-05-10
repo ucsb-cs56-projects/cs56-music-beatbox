@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.W11.mrochin.choice02;
+package edu.ucsb.cs56.projects.music.beatbox;
 
 import java.awt.*;
 import javax.swing.*;
