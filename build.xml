@@ -38,46 +38,41 @@
       ant server
 
       To play online, server must be run on csil.cs.ucsb.edu
-    </echo>                                                                    
-  </target>     
-  
-  <target name="client" depends="compile" description="runs the class BeatBoxFinal"> 
-    <java classname="${mainClass}" fork="true"> 
-      <arg line="${env.USER}"/> 
-      <classpath refid="project.class.path"/>   
-    </java> 
-  </target> 
-  
-  <target name="server" depends="compile" description="runs the class MusicServer"> 
-    <java classname="${mainClass02}" fork="true"> 
-      <classpath refid="project.class.path" />   
-    </java> 
-  </target> 
-  
-  
-  <target name="clean" description="deletes the build directory"> 
-    <delete dir="build" /> 
-    <delete dir="dist" /> 
-    <delete dir="javadoc" /> 
-  </target> 
-  
-  <target name="test" depends="compile" description="runs all the Junit tests"> 
-    
-    <junit haltonerror="no" haltonfailure="no"> 
-      <classpath refid="project.class.path" />   
-      
-      <batchtest fork="yes"> 
-	<fileset dir="src"> 
+    </echo>
+  </target>
+
+  <target name="client" depends="compile" description="runs the class BeatBoxFinal">
+    <java classname="${mainClass}" fork="true">
+      <arg line="${env.USER}"/>
+      <classpath refid="project.class.path"/>
+    </java>
+  </target>
+
+  <target name="server" depends="compile" description="runs the class MusicServer">
+    <java classname="${mainClass02}" fork="true">
+      <classpath refid="project.class.path" />
+    </java>
+  </target>
+
+  <target name="clean" description="deletes the build directory">
+    <delete dir="build" />
+    <delete dir="dist" />
+    <delete dir="javadoc" />
+  </target>
+
+  <target name="test" depends="compile" description="runs all the Junit tests">
+    <junit haltonerror="no" haltonfailure="no">
+      <classpath refid="project.class.path" />
+      <batchtest fork="yes">
+	<fileset dir="src">
           <!-- this will pick up every class with a name ending in Test --> 
-          <include name="**/*Test.java"/> 
-	</fileset> 
-      </batchtest> 
-      
-      <formatter type="plain" usefile="false" /> 
-      
-    </junit> 
-  </target> 
-  
+          <include name="**/*Test.java"/>
+	</fileset>
+      </batchtest>
+      <formatter type="plain" usefile="false" />
+    </junit>
+  </target>
+
   <target name="javadoc" depends="compile" description="produces the javadoc"> 
     <delete dir="javadoc" quiet="true" />
     <javadoc  destdir="javadoc" author="true" version="true" use="true" >
