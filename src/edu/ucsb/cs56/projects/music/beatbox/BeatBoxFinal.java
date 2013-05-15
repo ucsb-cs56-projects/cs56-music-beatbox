@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.projects.music.beatbox;
 
+
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
@@ -85,23 +86,37 @@ public class BeatBoxFinal {
 	JScrollPane theList = new JScrollPane(incomingList) ;
 	buttonBox.add(theList) ;         
 	incomingList.setListData(listVector) ; // no data to start with
-	Box nameBox = new Box(BoxLayout.Y_AXIS) ;
-	for (int i = 0; i < 16; i++) {
-	    nameBox.add(new Label(instrumentNames[i] ) ) ;
-	}        
+	//Box nameBox = new Box(BoxLayout.Y_AXIS) ;
+	//for (int i = 0; i < 16; i++) {
+	//  nameBox.add(new Label(instrumentNames[i] ) ) ;
+	//}        
 	background.add(BorderLayout.EAST, buttonBox) ;
-	background.add(BorderLayout.WEST, nameBox) ;
+	//background.add(BorderLayout.WEST, nameBox) ;
 	theFrame.getContentPane().add(background) ;         
-	GridLayout grid = new GridLayout(16, 16) ;
-	grid.setVgap(1) ;
-	grid.setHgap(2) ;
+	GridBagLayout grid = new GridBagLayout() ;
+	GridBagConstraints con = new GridBagConstraints();
+	con.gridx = 0; con.gridy = 0;
+	con.weightx = 1.0; con.weighty = 1.0;
+	con.fill = GridBagConstraints.BOTH;
+
+	//grid.setVgap(1);
+	//grid.setHgap(2) ;
 	mainPanel = new JPanel(grid) ;
 	background.add(BorderLayout.CENTER, mainPanel) ;
-	for (int i = 0; i < 256; i++) {                    
+	for (int i = 0; i < 256; i++) {
+	    if(i%16==0) {
+		con.gridy++; con.gridx = 0;
+		Label l = new Label(instrumentNames[i/16]);
+		grid.setConstraints(l, con);
+		mainPanel.add(l);
+		con.gridx++;
+	    }
 	    JCheckBox c = new JCheckBox() ;
 	    c.setSelected(false) ;
 	    checkboxList.add(c) ;
-	    mainPanel.add(c) ;            
+	    grid.setConstraints(c, con);
+	    mainPanel.add(c) ;
+	    con.gridx++;
 	} // end loop
 
 	theFrame.setBounds(50,50, 300, 300) ;
