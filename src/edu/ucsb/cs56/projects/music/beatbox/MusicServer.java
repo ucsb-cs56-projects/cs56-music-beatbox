@@ -13,6 +13,11 @@ public class MusicServer {
     public static void main (String[] args) {
 	new MusicServer().go() ;
     }
+    /** 
+     * Create a new input stream with the client's socket and
+     * while there is something to read in, reads in two objects and
+     * call the method tellEveryone
+     */
     public class ClientHandler implements Runnable {
 	ObjectInputStream in;       
 	Socket clientSocket;
@@ -36,7 +41,13 @@ public class MusicServer {
 		} // close while
 	    } catch(Exception ex) {ex.printStackTrace() ; }
 	} // close run
-    } // close inner class 
+    } // close inner class
+
+    /**
+     * makes a connection with the client on port 4242,
+     *connects the output stream to the client socket
+     *and create a new thread with a client handler.
+     */
     public void go() {
 	clientOutputStreams = new ArrayList<ObjectOutputStream>() ;
         try {
@@ -54,6 +65,11 @@ public class MusicServer {
 	}
     } // close go
 
+    /**
+     * write the two objects to each of the client output streams
+     * @param one object to output
+     * @param two object to output
+     */
     public void tellEveryone(Object one, Object two) {
 	Iterator it = clientOutputStreams.iterator() ;
 	while(it.hasNext() ) {
