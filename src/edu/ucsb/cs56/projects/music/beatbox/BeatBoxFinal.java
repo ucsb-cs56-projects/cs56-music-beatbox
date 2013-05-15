@@ -9,6 +9,13 @@ import java.util.*;
 import java.awt.event.*;
 import java.net.*;
 import javax.swing.event.*;
+
+/** Class for Beat Box
+ *@version UCSB, S13, 05/14/2013
+ *@author Callum Steele
+ *@author Miranda Aperghis
+ *
+ */
 public class BeatBoxFinal {
     JFrame theFrame;
     JPanel mainPanel;

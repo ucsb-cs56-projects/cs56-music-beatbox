@@ -2,6 +2,12 @@ package edu.ucsb.cs56.projects.music.beatbox;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+
+/** Class for Music Server
+ *@version UCSB, S13, 05/14/2013
+ *@author Callum Steele
+ *@author Miranda Aperghis
+ */
 public class MusicServer {
     ArrayList<ObjectOutputStream> clientOutputStreams;
     public static void main (String[] args) {
