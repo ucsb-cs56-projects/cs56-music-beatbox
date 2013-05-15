@@ -10,6 +10,9 @@ import java.util.*;
  */
 public class MusicServer {
     ArrayList<ObjectOutputStream> clientOutputStreams;
+    /**
+     * Main that creates a new MusicServer and calls the method go
+     */
     public static void main (String[] args) {
 	new MusicServer().go() ;
     }
