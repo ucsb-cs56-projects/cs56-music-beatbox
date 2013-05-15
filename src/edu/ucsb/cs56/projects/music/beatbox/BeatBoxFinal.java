@@ -53,6 +53,7 @@ public class BeatBoxFinal {
 
     public void buildGUI() {
 	theFrame = new JFrame("Cyber BeatBox") ;
+	theFrame.setMinimumSize(new Dimension(700,500));
 	BorderLayout layout = new BorderLayout() ;
 	JPanel background = new JPanel(layout) ;
 	background.setBorder(BorderFactory.createEmptyBorder(10,10,10, 10) ) ;
