@@ -14,6 +14,8 @@ import javax.swing.event.*;
  *@version UCSB, S13, 05/14/2013
  *@author Callum Steele
  *@author Miranda Aperghis
+ *@author Richard Alvarez
+ *@author Gabriel Romero
  *
  */
 
@@ -87,7 +89,7 @@ public class BeatBoxFinal {
 	start.addActionListener(new MyStartListener() ) ;
 	buttonBox.add(start) ;
 
-	JButton stop = new JButton("Stop") ;
+	JButton stop = new JButton("Pause") ;
 	stop.addActionListener(new MyStopListener() ) ;
 	buttonBox.add(stop) ;
 	JButton upTempo = new JButton("Tempo Up") ;
@@ -100,6 +102,11 @@ public class BeatBoxFinal {
 	sendIt.addActionListener(new MySendListener() ) ;
 	buttonBox.add(sendIt) ;
 	userMessage = new JTextField() ;
+	JButton clear = new JButton("Clear") ;
+	clear.addActionListener(new MyResetListener() ) ;
+	buttonBox.add(clear) ;
+
+	
 
 	buttonBox.add(userMessage) ;
 	incomingList = new JList() ;
@@ -182,11 +189,38 @@ public class BeatBoxFinal {
 	} catch(Exception e) {e.printStackTrace() ;}
     } // close method
 
+  
+
+
+  /**
+       Resets the various checkboxes.
+     */
+
+    public void resetTrack() {
+	//  ArrayList<Integer> trackList = null; // this will hold the instruments for each 
+        //sequence.deleteTrack(track) ;
+        //track = sequence.createTrack() ;
+        for (int i = 0; i < 16; i++) {
+	    for (int j = 0; j < 16; j++) {
+		JCheckBox jc = (JCheckBox) checkboxList.get(j + (16*i) ) ;
+		jc.setSelected(false);
+	    } // close inner loop
+	}
+    } // close method
+
+
+
+
+
+
+
     /**
        Listens for a click event on the start button.
      */
 
-    public class MyStartListener implements ActionListener {
+ 
+
+   public class MyStartListener implements ActionListener {
 
 	/**
 	   Creates the track and starts it when a click event occurs on the start button.
@@ -201,6 +235,20 @@ public class BeatBoxFinal {
     /**
        Listens for a click event on the stop button.
      */
+
+   public class MyResetListener implements ActionListener {
+
+	/**
+	   Creates the track and starts it when a click event occurs on the start button.
+	   @param a ActionEvent containing details of the click event.
+	 */
+
+        public void actionPerformed(ActionEvent a) {
+	    resetTrack() ;
+        } // close actionPerformed
+    } // close inner class
+
+
 
     public class MyStopListener implements ActionListener {
 
