@@ -91,10 +91,14 @@ public class BeatBoxFinal {
 
 	JButton stop = new JButton("Pause") ;
 	stop.addActionListener(new MyStopListener() ) ;
+	stop.setBounds(300,300 , 10,10);
 	buttonBox.add(stop) ;
 	JButton upTempo = new JButton("Tempo Up") ;
 	upTempo.addActionListener(new MyUpTempoListener() ) ;
 	buttonBox.add(upTempo) ;
+	JButton resetTempo = new JButton("Reset Tempo") ;
+	resetTempo.addActionListener(new MyResetTempoListener() ) ;
+	buttonBox.add(resetTempo) ;
 	JButton downTempo = new JButton("Tempo Down") ;
 	downTempo.addActionListener(new MyDownTempoListener() ) ;
 	buttonBox.add(downTempo) ;
@@ -104,6 +108,7 @@ public class BeatBoxFinal {
 	userMessage = new JTextField() ;
 	JButton clear = new JButton("Clear") ;
 	clear.addActionListener(new MyResetListener() ) ;
+	
 	buttonBox.add(clear) ;
 
 	
@@ -295,6 +300,19 @@ public class BeatBoxFinal {
 	    sequencer.setTempoFactor((float) (tempoFactor *.97) ) ;
         }
     }
+     public class MyResetTempoListener implements ActionListener {
+
+	/**
+	   
+	   @param a ActionEvent containing details of the click event.
+	 */
+
+	public void actionPerformed(ActionEvent a) {
+	    float tempoFactor =  sequencer.getTempoFactor();
+	    sequencer.setTempoFactor((float) (tempoFactor*0.0 + 1.0) ) ;
+	    
+	     }
+     }
 
     /**
        Listens for a click event on the send button.
@@ -427,4 +445,6 @@ public class BeatBoxFinal {
 	}catch(Exception e) { }
 	return event;
     } // close makeEvent
+
+    
 } // close class
