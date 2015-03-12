@@ -14,6 +14,8 @@ import javax.swing.event.*;
  *@version UCSB, S13, 05/14/2013
  *@author Callum Steele
  *@author Miranda Aperghis
+ *@author Richard Alvarez
+ *@author Gabriel Romero
  *
  */
 
@@ -21,7 +23,6 @@ public class BeatBoxFinal {
     JFrame theFrame;
     JPanel mainPanel;
     JList incomingList;
-    JTextField userMessage;
     ArrayList<JCheckBox> checkboxList;
     int nextNum;
     Vector<String> listVector = new Vector<String>() ;
@@ -57,16 +58,6 @@ public class BeatBoxFinal {
 
     public void startUp(String name) {
 	userName = name;
-	// open connection to the server
-	try {
-            Socket sock = new Socket("csil.cs.ucsb.edu", 4242) ;
-            out = new ObjectOutputStream(sock.getOutputStream() ) ;
-            in = new ObjectInputStream(sock.getInputStream() ) ;
-            Thread remote = new Thread(new RemoteReader() ) ;
-            remote.start() ;
-	} catch(Exception ex) {
-	    System.out.println("couldn't connect - you'll have to play alone.") ;
-	}
 	setUpMidi() ;
 	buildGUI() ;
     } // close startUp
@@ -83,30 +74,35 @@ public class BeatBoxFinal {
 	background.setBorder(BorderFactory.createEmptyBorder(10,10,10, 10) ) ;
 	checkboxList = new ArrayList<JCheckBox>() ;
 	Box buttonBox = new Box(BoxLayout.Y_AXIS) ;
+
 	JButton start = new JButton("Start") ;
 	start.addActionListener(new MyStartListener() ) ;
 	buttonBox.add(start) ;
-
-	JButton stop = new JButton("Stop") ;
+	JButton stop = new JButton("Pause") ;
 	stop.addActionListener(new MyStopListener() ) ;
+	stop.setBounds(300,300 , 10,10);
 	buttonBox.add(stop) ;
 	JButton upTempo = new JButton("Tempo Up") ;
 	upTempo.addActionListener(new MyUpTempoListener() ) ;
 	buttonBox.add(upTempo) ;
+	JButton resetTempo = new JButton("Reset Tempo") ;
+	resetTempo.addActionListener(new MyResetTempoListener() ) ;
+	buttonBox.add(resetTempo) ;
 	JButton downTempo = new JButton("Tempo Down") ;
 	downTempo.addActionListener(new MyDownTempoListener() ) ;
 	buttonBox.add(downTempo) ;
-	JButton sendIt = new JButton("sendIt") ;
-	sendIt.addActionListener(new MySendListener() ) ;
-	buttonBox.add(sendIt) ;
-	userMessage = new JTextField() ;
+	JButton clear = new JButton("Clear") ;
+	clear.addActionListener(new MyResetListener() ) ;
+	
+	buttonBox.add(clear) ;
 
-	buttonBox.add(userMessage) ;
-	incomingList = new JList() ;
+	
+
+        incomingList = new JList() ;
 	incomingList.addListSelectionListener(new MyListSelectionListener() ) ;
 	incomingList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION) ;
-	JScrollPane theList = new JScrollPane(incomingList) ;
-	buttonBox.add(theList) ;         
+	/*	JScrollPane theList = new JScrollPane(incomingList) ;
+		buttonBox.add(theList) ; */        
 	incomingList.setListData(listVector) ; // no data to start with
 	background.add(BorderLayout.EAST, buttonBox) ;
 	theFrame.getContentPane().add(background) ;         
@@ -182,11 +178,38 @@ public class BeatBoxFinal {
 	} catch(Exception e) {e.printStackTrace() ;}
     } // close method
 
+  
+
+
+  /**
+       Resets the various checkboxes.
+     */
+
+    public void resetTrack() {
+	//  ArrayList<Integer> trackList = null; // this will hold the instruments for each 
+        //sequence.deleteTrack(track) ;
+        //track = sequence.createTrack() ;
+        for (int i = 0; i < 16; i++) {
+	    for (int j = 0; j < 16; j++) {
+		JCheckBox jc = (JCheckBox) checkboxList.get(j + (16*i) ) ;
+		jc.setSelected(false);
+	    } // close inner loop
+	}
+    } // close method
+
+
+
+
+
+
+
     /**
        Listens for a click event on the start button.
      */
 
-    public class MyStartListener implements ActionListener {
+ 
+
+   public class MyStartListener implements ActionListener {
 
 	/**
 	   Creates the track and starts it when a click event occurs on the start button.
@@ -201,6 +224,20 @@ public class BeatBoxFinal {
     /**
        Listens for a click event on the stop button.
      */
+
+   public class MyResetListener implements ActionListener {
+
+	/**
+	   Creates the track and starts it when a click event occurs on the start button.
+	   @param a ActionEvent containing details of the click event.
+	 */
+
+        public void actionPerformed(ActionEvent a) {
+	    resetTrack() ;
+        } // close actionPerformed
+    } // close inner class
+
+
 
     public class MyStopListener implements ActionListener {
 
@@ -247,43 +284,26 @@ public class BeatBoxFinal {
 	    sequencer.setTempoFactor((float) (tempoFactor *.97) ) ;
         }
     }
-
-    /**
-       Listens for a click event on the send button.
-     */
-
-    public class MySendListener implements ActionListener {
+     public class MyResetTempoListener implements ActionListener {
 
 	/**
-	   Attempts to send a message and the checkbox's state to the server.
+	   
 	   @param a ActionEvent containing details of the click event.
 	 */
 
 	public void actionPerformed(ActionEvent a) {
-	    // make an arraylist of just the STATE of the checkboxes
-            boolean[] checkboxState = new boolean[256] ;
-	    for (int i = 0; i < 256; i++) {
-		JCheckBox check = (JCheckBox) checkboxList.get(i) ;
-		if (check.isSelected() ) {
-		    checkboxState[i] = true;
-		}
-	    } // close loop
-	    String messageToSend = null;         
-	    try {          
-		out.writeObject(userName + nextNum++ + ": " + userMessage.getText() ) ;
-		out.writeObject(checkboxState) ;
-	    } catch(Exception ex) {
-		System.out.println("Sorry dude. Could not send it to the server.") ;
-	    }
-	    userMessage.setText("") ;         
-	} // close actionPerformed
-    } // close inner class
+	    float tempoFactor =  sequencer.getTempoFactor();
+	    sequencer.setTempoFactor((float) (tempoFactor*0.0 + 1.0) ) ;
+	    
+	     }
+     }
 
+   
     /**
        Listens for a click event on an item in the list.
      */
 
-    public class MyListSelectionListener implements ListSelectionListener {
+      public class MyListSelectionListener implements ListSelectionListener {
 
 	/**
 	   Changes a value in the sequence, stops the current track and rebuilds it, running the track after it is built.
@@ -302,35 +322,8 @@ public class BeatBoxFinal {
 		}
 	    }
 	} // close valueChanged
-    } // close inner class
+} // close inner class
 
-    /**
-       A seperate thread for handling communications with the server.
-     */
-
-    public class RemoteReader implements Runnable {
-        boolean[] checkboxState = null;
-        String nameToShow = null;
-        Object obj = null;
-
-	/**
-	   Reads incoming communications from the server, and stores/displays them.
-	 */
-
-        public void run() {
-	    try {
-		while((obj =in.readObject() ) != null) {
-		    System.out.println("got an object from server") ;
-		    System.out.println(obj.getClass() ) ;         
-		    String nameToShow = (String) obj;
-		    checkboxState = (boolean[] ) in.readObject() ;
-		    otherSeqsMap.put(nameToShow, checkboxState) ;
-		    listVector.add(nameToShow) ;
-		    incomingList.setListData(listVector) ;           
-		} // close while
-	    } catch(Exception ex) { ex.printStackTrace() ; }  
-        } // close run   
-    } // close inner class
 
     /**
        Sets the checkboxes in the display according to the inputted boolean array.
@@ -379,4 +372,6 @@ public class BeatBoxFinal {
 	}catch(Exception e) { }
 	return event;
     } // close makeEvent
+
+    
 } // close class

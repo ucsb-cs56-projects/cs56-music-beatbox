@@ -29,7 +29,7 @@
     </javac>
   </target>
 
-  <target name="run" depends="compile" description="tells the user how to run">
+  <target name="run" depends="compile" description="Tells the user how to run">
     <echo>
       you may use ant -p to list the commands
 
