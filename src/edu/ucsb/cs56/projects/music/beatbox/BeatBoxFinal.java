@@ -122,6 +122,9 @@ public class BeatBoxFinal {
 		con.gridx++;
 	    }
 	    JCheckBox c = new JCheckBox() ;
+	    if (i%4 == 0 || i==0) {
+		    c.setBackground(new Color (0, 40, 200));
+		}
 	    c.setSelected(false) ;
 	    checkboxList.add(c) ;
 	    grid.setConstraints(c, con);
