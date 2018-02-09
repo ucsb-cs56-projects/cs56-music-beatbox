@@ -29,3 +29,4 @@ h) As a user, I would like a cleaner interface.
    As a user, I would like to see some sample beats.
    
 i)
+j) There are no tests in the program. One of the problems with the program is that is is one big file and it doesnt have many classes. And the unit testing work better with classes. We could create more classes and do better testing. The classes could be the instruments themselves and also each beatbox configuration could be a class too.
