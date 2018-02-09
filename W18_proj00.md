@@ -29,4 +29,11 @@ h) As a user, I would like a cleaner interface.
    As a user, I would like to see some sample beats.
    
 i)
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/30
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/29
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/28
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/27
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/26
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/25
+
 j) There are no tests in the program. One of the problems with the program is that is is one big file and it doesnt have many classes. And the unit testing work better with classes. We could create more classes and do better testing. The classes could be the instruments themselves and also each beatbox configuration could be a class too.
