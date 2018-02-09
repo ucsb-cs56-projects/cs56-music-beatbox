@@ -18,7 +18,7 @@ d) As a user, I would like to add more instruments.
    
 e) The readme file is in a poor state. There is a brief explanation of what the program does but nothing else. We could add the overall structure of the program. We could talk about the javax.sound.midi package. We could explain the purpose of the server and the structure of it wnd how it commnuticates with the main program.
 
-f)
+f) The current state of the build.xml file is understandable. The targets are clear and do not need any descriptions. There is no old legacy JWS stuff that needs to be removed. 
 
 g) There are about 1700 points for this project in issues. We can definitely get 100 easily. Most of them are pretty clear. There is one which is kind of confusing which says "make it easier to see each of the 4 beats".
 
