@@ -1,4 +1,5 @@
 a) This program is about a beatbox which mixes sounds together. It has a gui interface with with you can choose certain beats and press play to make your music mix. Also there is a chat functionality where you can talk to other players who are running the program.
+
 b) As a user, I can make music using the Beatbox gui.
    As a user, I can run the command "ant client" so that the music Beatbox is launched
    As a user, I can select instruments to make a beat at each of the 16 beats.
