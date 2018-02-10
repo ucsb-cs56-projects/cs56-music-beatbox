@@ -28,13 +28,13 @@ h) As a user, I would like a cleaner interface.
    As a user, I would like to be able to not have to press the stop and start buttons when adding a new instrument beat.
    As a user, I would like to see some sample beats.
    
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/30
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/29
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/28
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/27
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/26
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/25
+-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/30
+-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/29
+-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/28
+-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/27
+-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/26
+-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/25
 
-i) The project only consists of two java files, BeatBoxFianl.java and MusicServer.java. Basically the BeatBoxFinal file makes the whole project, and the MusicServer file is set up just in case someone wants to play online. The code is easy to understand with its variables names, method names and class names being declared clearly and logically. Also, there are comments on the bottom of every methods and some confusing lines that help the programmer to understand what the code is actuall doing, but some numbers are not given a comment, making them as ""magic numbers" to other programmers. 
+i) The project only consists of two java files, BeatBoxFianl.java and MusicServer.java. Basically the BeatBoxFinal file makes the whole project, and the MusicServer file is set up just in case someone wants to play online. The code is easy to understand with its variables names, method names and class names being declared clearly and logically. Also, there are comments on the bottom of every methods and some confusing lines that help the programmer to understand what the code is actuall doing, but some numbers are not given a comment, making them as ""magic numbers" to other programmers. The classes seem to be clear in their naming, but most of them are only for implementing the listener interface. The code has very good indentation and is easy to read. However the server class seems a bit confusing in the naming of the variables. The information for one screenfull of text would be to start refactoring the code. I think the code is good for the most part but it really is lacking in features and presentation. Thats where the work needs to happen.
 
 j) There are no tests in the program. One of the problems with the program is that is is one big file and it doesnt have many classes. And the unit testing work better with classes. We could create more classes and do better testing. The classes could be the instruments themselves and also each beatbox configuration could be a class too.
