@@ -1,5 +1,6 @@
 
 Project 1. Cristian Diaz:ElBenSwolo and Fujie Liang:fliang97 
+======
 
 a. This program is about a beatbox which mixes sounds together. It has a gui interface with with you can choose certain beats and press play to make your music mix. Also there is a chat functionality where you can talk to other players who are running the program.
 
