@@ -26,8 +26,7 @@ f. The current state of the build.xml file is understandable. The targets are cl
 
 g. There are about 1700 points for this project in issues. We can definitely get 100 easily. Most of them are pretty clear. There is one which is kind of confusing which says "make it easier to see each of the 4 beats".
 
-h. 
-* As a user, I would like a cleaner interface.
+h. * As a user, I would like a cleaner interface.
 * As a user, I would like to see a picture of the instruments.
 * As a user, I would like to be able to increase the tempo on the fly.
 * As a user, I would like to be able to not have to press the stop and start buttons when adding a new instrument beat.
