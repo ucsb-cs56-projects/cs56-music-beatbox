@@ -20,15 +20,11 @@ import javax.swing.event.*;
 public class BeatBoxFinal {
     JFrame theFrame;
     JPanel mainPanel;
-    //JList incomingList;
     JTextArea DisplayTempo;
-    //JTextField userMessage;
     ArrayList<JCheckBox> checkboxList;
     int nextNum;
     Vector<String> listVector = new Vector<String>() ;
     String userName;
-    //ObjectOutputStream out;
-    //ObjectInputStream in;
     HashMap<String, boolean[] > otherSeqsMap = new HashMap<String, boolean[] >() ;
     Sequencer sequencer;
     Sequence sequence;
@@ -112,7 +108,6 @@ public class BeatBoxFinal {
     float tempoFactor = sequencer.getTempoInBPM();
     String tempo = "Default Tempo in BPM: " + Float.toString(sequencer.getTempoInBPM());
     DisplayTempo = new JTextArea(tempo);
-    //DisplayTempo.append("Default Tempo in BPM: " + Float.toString(sequencer.getTempoInBPM()));
         
 		
 	JButton stop = new JButton("       Stop        ") ;
@@ -157,7 +152,6 @@ public class BeatBoxFinal {
 	    JCheckBox c = new JCheckBox() ;
 	    c.setSelected(false) ;
 	    checkboxList.add(c) ;
-        //c.addActionListener(new MyJcheckBoxListListener() );
 	    grid.setConstraints(c, con);
 	    mainPanel.add(c) ;
 	    con.gridx++;
