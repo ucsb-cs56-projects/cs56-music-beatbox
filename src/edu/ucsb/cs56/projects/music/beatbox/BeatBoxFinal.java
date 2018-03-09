@@ -66,7 +66,7 @@ public class BeatBoxFinal {
 
 
 
-    String[] instrumentNames = {"Bass Drum", "Closed Hi-Hat", "Open Hi-Hat", "Acoustic Snare", "Crash Cymbal", "Hand Clap", "High Tom", "Hi Bongo", "Maracas", "Whistle", "Low Conga", "Cowbell", "Vibraslap", "Low-mid Tom", "High Agogo", "Open Hi Conga"} ;
+    String[] instrumentNames = {" ","Bass Drum", "Closed Hi-Hat", "Open Hi-Hat", "Acoustic Snare", "Crash Cymbal", "Hand Clap", "High Tom", "Hi Bongo", "Maracas", "Whistle", "Low Conga", "Cowbell", "Vibraslap", "Low-mid Tom", "High Agogo", "Open Hi Conga"} ;
     int[] instruments = { 35, 42, 46, 38, 49,39,50,60, 70, 72, 64, 56,58,47,67, 63} ;
     //int[] instruments = { 35, 35, 35, 35, 35,35,35,35, 35, 35, 35, 35,35,35,35, 35};
     
@@ -92,6 +92,7 @@ public class BeatBoxFinal {
 	userName = name;
 	setUpMidi() ;
 	buildGUI() ;
+
     } // close startUp
 
     /**
@@ -146,7 +147,7 @@ public class BeatBoxFinal {
 	con.fill = GridBagConstraints.BOTH;
 	mainPanel = new JPanel(grid) ;
 	background.add(BorderLayout.CENTER, mainPanel) ;
-	for (int i = 0; i < 256; i++) {
+	for (int i = 0; i < 272; i++) {
 	    if(i%16==0) {
 		con.gridy++; con.gridx = 0;
 		Label l = new Label(instrumentNames[i/16]);
@@ -162,6 +163,10 @@ public class BeatBoxFinal {
 	    mainPanel.add(c) ;
 	    con.gridx++;
 	} // end loop
+    for(int i = 0 ; i < 16; i++){
+    JCheckBox jcbox = (JCheckBox) checkboxList.get(i);
+    jcbox.setEnabled(false);
+    }
         
 	theFrame.setBounds(50,50, 300, 300) ;
 	theFrame.pack() ;
@@ -190,12 +195,12 @@ public class BeatBoxFinal {
         ArrayList<Integer> trackList = null; // this will hold the instruments for each 
         sequence.deleteTrack(track) ;
         track = sequence.createTrack() ;
-        for (int i = 0; i < 16; i++) {
+        for (int i = 1; i < 17; i++) {
 	    trackList = new ArrayList<Integer>() ;
 	    for (int j = 0; j < 16; j++) {
 		JCheckBox jc = (JCheckBox) checkboxList.get(j + (16*i) ) ;
 		if (jc.isSelected() ) { 
-		    int key = instruments[i] ;  
+		    int key = instruments[i - 1] ;
 		    trackList.add(new Integer(key) ) ;
 		} else {
 		    trackList.add(null) ;  // because this slot should be empty in the track
@@ -260,9 +265,49 @@ public class BeatBoxFinal {
 
         public void actionPerformed(ActionEvent a) {
 	    buildTrackAndStart() ;
-        } // close actionPerformed
-    } // close inner class
+            //while(sequencer.isRunning()){
+                for(int i = 0; i < 16; i++){
+                    JCheckBox jc = (JCheckBox) checkboxList.get(i);
+                    jc.setSelected(false);
+                    if(i == sequencer.getTickPosition()){
+                        jc.setSelected(true);
+                    }
+                }
+            Runnable threadJob = new MyRunnable();
+            Thread myThread = new Thread(threadJob);
+            myThread.start();
+            
+           // }
+        }// close actionPerformed
+    }// close inner class
 
+public class MyRunnable implements Runnable{
+    public void run(){
+        go();
+    }
+    
+    public void go(){
+        try{
+            Thread.sleep(20);
+        }catch(InterruptedException ex){
+            ex.printStackTrace();
+        }
+        doMore();
+    }
+    
+    public void doMore(){
+        while(true){
+            for(int i = 0; i < 16; i++){
+                checkboxList.get(i).setSelected(false);
+                if(i == sequencer.getTickPosition()){
+                    checkboxList.get(i).setSelected(true);
+                }
+            }
+        }
+        
+    }
+    
+}
     /**
        Listens for a click event on the stop button.
      */
@@ -302,7 +347,9 @@ public class BeatBoxFinal {
         float temp = (float) (tempoFactor * 1.03);
         //float tempoFactor1 = sequencer.getTempoInBPM();
         String tempo = Float.toString(temp * sequencer.getTempoInBPM());
-        DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
+            long t = (long) sequencer.getTickPosition();
+            String t1 = Long.toString(t);
+            DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo + "\n" +t1);
 	} // close actionPerformed        
     } // close inner class
 
