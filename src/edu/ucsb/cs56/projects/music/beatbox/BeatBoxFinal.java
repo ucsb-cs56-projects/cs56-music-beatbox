@@ -298,7 +298,8 @@ public class BeatBoxFinal {
 			float tempoFactor = sequencer.getTempoFactor();
 			sequencer.setTempoFactor((float)(tempoFactor * 1.03));
 			float temp = (float)(tempoFactor * 1.03);
-			//float tempoFactor1 = sequencer.getTempoInBPM();
+			//One of the 1.03 is used to set the sequencer tempo and the other one is used to set the string for the message box
+			//there is no need to have multiplied by two we could do it in one step
 			String tempo = Float.toString(temp * sequencer.getTempoInBPM());
 			DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
 		} // close actionPerformed        
