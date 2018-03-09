@@ -20,15 +20,11 @@ import javax.swing.event.*;
 public class BeatBoxFinal {
     JFrame theFrame;
     JPanel mainPanel;
-    //JList incomingList;
     JTextArea DisplayTempo;
-    //JTextField userMessage;
     ArrayList<JCheckBox> checkboxList;
     int nextNum;
     Vector<String> listVector = new Vector<String>() ;
     String userName;
-    //ObjectOutputStream out;
-    //ObjectInputStream in;
     HashMap<String, boolean[] > otherSeqsMap = new HashMap<String, boolean[] >() ;
     Sequencer sequencer;
     Sequence sequence;
@@ -68,7 +64,6 @@ public class BeatBoxFinal {
 
     String[] instrumentNames = {" ","Bass Drum", "Closed Hi-Hat", "Open Hi-Hat", "Acoustic Snare", "Crash Cymbal", "Hand Clap", "High Tom", "Hi Bongo", "Maracas", "Whistle", "Low Conga", "Cowbell", "Vibraslap", "Low-mid Tom", "High Agogo", "Open Hi Conga"} ;
     int[] instruments = { 35, 42, 46, 38, 49,39,50,60, 70, 72, 64, 56,58,47,67, 63} ;
-    //int[] instruments = { 35, 35, 35, 35, 35,35,35,35, 35, 35, 35, 35,35,35,35, 35};
     
     /**
        Main program
@@ -113,7 +108,6 @@ public class BeatBoxFinal {
     float tempoFactor = sequencer.getTempoInBPM();
     String tempo = "Default Tempo in BPM: " + Float.toString(sequencer.getTempoInBPM());
     DisplayTempo = new JTextArea(tempo);
-    //DisplayTempo.append("Default Tempo in BPM: " + Float.toString(sequencer.getTempoInBPM()));
         
 		
 	JButton stop = new JButton("       Stop        ") ;
@@ -158,7 +152,6 @@ public class BeatBoxFinal {
 	    JCheckBox c = new JCheckBox() ;
 	    c.setSelected(false) ;
 	    checkboxList.add(c) ;
-        //c.addActionListener(new MyJcheckBoxListListener() );
 	    grid.setConstraints(c, con);
 	    mainPanel.add(c) ;
 	    con.gridx++;
@@ -207,7 +200,7 @@ public class BeatBoxFinal {
 		}
 	    } // close inner loop
 	    makeTracks(trackList) ;
-        track.add(makeEvent(176,1,127,0,16));   // self-made code
+        track.add(makeEvent(176,1,127,0,16));
         } // close outer loop
         track.add(makeEvent(192, 9,1,0, 15) ) ; // - so we always go to full 16 beats  
         try {
@@ -249,7 +242,6 @@ public class BeatBoxFinal {
             float tempoFactor = sequencer.getTempoFactor();
             sequencer.setTempoFactor ( (float) (tempoFactor / tempoFactor));
             float temp = (float) (tempoFactor / tempoFactor);
-            //float tempoFactor1 = sequencer.getTempoInBPM();
             String tempo = Float.toString(temp * sequencer.getTempoInBPM());
             DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
         }
@@ -265,7 +257,6 @@ public class BeatBoxFinal {
 
         public void actionPerformed(ActionEvent a) {
 	    buildTrackAndStart() ;
-            //while(sequencer.isRunning()){
                 for(int i = 0; i < 16; i++){
                     JCheckBox jc = (JCheckBox) checkboxList.get(i);
                     jc.setSelected(false);
@@ -276,38 +267,34 @@ public class BeatBoxFinal {
             Runnable threadJob = new MyRunnable();
             Thread myThread = new Thread(threadJob);
             myThread.start();
-            
-           // }
         }// close actionPerformed
     }// close inner class
 
-public class MyRunnable implements Runnable{
-    public void run(){
-        go();
-    }
-    
-    public void go(){
-        try{
-            Thread.sleep(20);
-        }catch(InterruptedException ex){
-            ex.printStackTrace();
+    public class MyRunnable implements Runnable{
+        public void run(){
+            go();
         }
-        doMore();
-    }
-    
-    public void doMore(){
-        while(true){
-            for(int i = 0; i < 16; i++){
-                checkboxList.get(i).setSelected(false);
-                if(i == sequencer.getTickPosition()){
-                    checkboxList.get(i).setSelected(true);
+
+        public void go(){
+            try{
+                Thread.sleep(20);
+            }catch(InterruptedException ex){
+                ex.printStackTrace();
+            }
+            doMore();
+        }
+            
+        public void doMore(){
+            while(true){
+                for(int i = 0; i < 16; i++){
+                    checkboxList.get(i).setSelected(false);
+                    if(i == sequencer.getTickPosition()){
+                        checkboxList.get(i).setSelected(true);
+                    }
                 }
             }
         }
-        
     }
-    
-}
     /**
        Listens for a click event on the stop button.
      */
@@ -342,16 +329,19 @@ public class MyRunnable implements Runnable{
 	 */
 
         public void actionPerformed(ActionEvent a) {
-	    float tempoFactor = sequencer.getTempoFactor() ;
-	    sequencer.setTempoFactor((float) (tempoFactor * 1.03) ) ;
-        float temp = (float) (tempoFactor * 1.03);
-        //float tempoFactor1 = sequencer.getTempoInBPM();
-        String tempo = Float.toString(temp * sequencer.getTempoInBPM());
+            float tempoFactor = sequencer.getTempoFactor() ;
+            sequencer.setTempoFactor((float) (tempoFactor * 1.03) ) ;
+            float temp = (float) (tempoFactor * 1.03);
+            String tempo = Float.toString(temp * sequencer.getTempoInBPM());
             long t = (long) sequencer.getTickPosition();
             String t1 = Long.toString(t);
             DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo + "\n" +t1);
-	} // close actionPerformed        
+	    } // close actionPerformed
     } // close inner class
+    //I personally think that a whole action should be performed in order to make the tempo faster.
+    //That means until the last line of the code is finished executing the tempoFactor will not be changed.
+
+
 
     /**
        Listens for a click event on the DownTempo button.
@@ -368,7 +358,6 @@ public class MyRunnable implements Runnable{
 	    float tempoFactor = sequencer.getTempoFactor() ;
 	    sequencer.setTempoFactor((float) (tempoFactor *.97) ) ;
         float temp = (float) (tempoFactor * 0.97);
-        //float tempoFactor1 = sequencer.getTempoInBPM();
         String tempo = Float.toString(temp * sequencer.getTempoInBPM());
         DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
         }
@@ -398,7 +387,6 @@ public class MyRunnable implements Runnable{
 	Iterator it = list.iterator() ;
         for (int i = 0; i < 16; i++){
 	    Integer num = (Integer) it.next() ;
-        //Integer num = (Integer) list.get(i);
 	    if (num != null) {
 		int numKey = num.intValue() ;                       
 		track.add(makeEvent(144,9, numKey, 100, i) ) ;
