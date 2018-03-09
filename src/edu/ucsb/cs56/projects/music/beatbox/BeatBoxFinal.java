@@ -49,7 +49,7 @@ public class BeatBoxFinal {
 				}
 			} // close inner loop
 			makeTracks(trackList);
-			track.add(makeEvent(176,1,127,0,16));   // self-made code
+			track.add(makeEvent(176,1,127,0,16));
 		} // close outer loop
 		track.add(makeEvent(192, 9,1,0, 15)); // - so we always go to full 16 beats
 		try {
@@ -242,11 +242,9 @@ public class BeatBoxFinal {
 			float tempoFactor = sequencer.getTempoFactor();
 			sequencer.setTempoFactor((float)(tempoFactor / tempoFactor));
 			float temp = (float)(tempoFactor / tempoFactor);
-			//float tempoFactor1 = sequencer.getTempoInBPM();
 			String tempo = Float.toString(temp * sequencer.getTempoInBPM());
 			DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
 		}
-
 	}
 
 	public class MyStartListener implements ActionListener {
@@ -298,8 +296,12 @@ public class BeatBoxFinal {
 			float tempoFactor = sequencer.getTempoFactor();
 			sequencer.setTempoFactor((float)(tempoFactor * 1.03));
 			float temp = (float)(tempoFactor * 1.03);
-			//One of the 1.03 is used to set the sequencer tempo and the other one is used to set the string for the message box
-			//there is no need to have multiplied by two we could do it in one step
+			//I personally think the reason why the value of tempoFactor is not updated when line 297 is executed 
+			//is because the value of the tempoFactor is updated only when the whole method is finished executed.
+			//Specifically, when you click the tempo up button, the tempo goes faster only when you loose your click.
+			//The value of tempoFactor does not have any changes when you hold your click on the button.
+			//Therefore, the value of tempoFactor is not updated until the last line of the method is executed.
+			//That is why tempoFactor does not get mutiplied by twice in this event.
 			String tempo = Float.toString(temp * sequencer.getTempoInBPM());
 			DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
 		} // close actionPerformed        
@@ -320,7 +322,6 @@ public class BeatBoxFinal {
 			float tempoFactor = sequencer.getTempoFactor();
 			sequencer.setTempoFactor((float)(tempoFactor *.97));
 			float temp = (float)(tempoFactor * 0.97);
-			//float tempoFactor1 = sequencer.getTempoInBPM();
 			String tempo = Float.toString(temp * sequencer.getTempoInBPM());
 			DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
 		}
