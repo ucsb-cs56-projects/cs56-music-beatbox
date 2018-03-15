@@ -36,12 +36,12 @@ public class BeatBoxFinal {
             ArrayList<Integer> trackList = null; // this will hold the instruments for each
             sequence.deleteTrack(track) ;
             track = sequence.createTrack() ;
-            for (int i = 0; i < 16; i++) {
+            for (int i = 1; i <= 16; i++) {  //change
                 trackList = new ArrayList<Integer>() ;
                 for (int j = 0; j < 16; j++) {
                     JCheckBox jc = (JCheckBox) checkboxList.get(j + (16*i) ) ;
                     if (jc.isSelected() ) {
-                        int key = instruments[i] ;
+                        int key = instruments[i - 1] ;
                         trackList.add(new Integer(key) ) ;
                     } else {
                         trackList.add(null) ;  // because this slot should be empty in the track
@@ -142,7 +142,7 @@ public class BeatBoxFinal {
 	mainPanel = new JPanel(grid) ;
 	background.add(BorderLayout.CENTER, mainPanel) ;
 	for (int i = 0; i < 272; i++) {
-	    if(i%16==0) {
+        if(i%16==0) {
 		con.gridy++; con.gridx = 0;
 		Label l = new Label(instrumentNames[i/16]);
 		grid.setConstraints(l, con);
@@ -193,7 +193,7 @@ public class BeatBoxFinal {
 	    for (int j = 0; j < 16; j++) {
 		JCheckBox jc = (JCheckBox) checkboxList.get(j + (16*i) ) ;
 		if (jc.isSelected() ) { 
-		    int key = instruments[i - 1] ;
+		    int key = instruments[i - 1] ; 
 		    trackList.add(new Integer(key) ) ;
 		} else {
 		    trackList.add(null) ;  // because this slot should be empty in the track
@@ -209,7 +209,7 @@ public class BeatBoxFinal {
 	    sequencer.start() ;
 	    sequencer.setTempoInBPM(120) ;
 	} catch(Exception e) {e.printStackTrace() ;}
-        for(int i = 0; i < 16; i++){
+        for(int i = 1; i < 17; i++){
             for(int j = 0; j < 16; j++){
                 JCheckBox box = (JCheckBox) checkboxList.get(j + (i*16));
                 box.addActionListener(more);
@@ -228,7 +228,7 @@ public class BeatBoxFinal {
                 (checkboxList.get(i)).setSelected(false);
             }
             sequencer.stop() ;
-            for(int i = 0; i < 16; i++){
+            for(int i = 1; i <= 16; i++){
                 for(int j = 0; j < 16; j++){
                     JCheckBox box = (JCheckBox) checkboxList.get(j + (i*16));
                     box.removeActionListener(more);
@@ -276,20 +276,21 @@ public class BeatBoxFinal {
         }
 
         public void go(){
-            try{
+            /*try{
                 Thread.sleep(20);
             }catch(InterruptedException ex){
                 ex.printStackTrace();
-            }
+            }*/
             doMore();
         }
             
         public void doMore(){
             while(true){
                 for(int i = 0; i < 16; i++){
-                    checkboxList.get(i).setSelected(false);
                     if(i == sequencer.getTickPosition()){
                         checkboxList.get(i).setSelected(true);
+                    }else{
+                    checkboxList.get(i).setSelected(false);
                     }
                 }
             }
@@ -308,7 +309,7 @@ public class BeatBoxFinal {
 
         public void actionPerformed(ActionEvent a) {
 	    sequencer.stop() ;
-        for(int i = 0; i < 16; i++){
+        for(int i = 1; i < 17; i++){
             for(int j = 0; j < 16; j++){
                 JCheckBox box = (JCheckBox) checkboxList.get(j + (i*16));
                 box.removeActionListener(more);
@@ -385,7 +386,7 @@ public class BeatBoxFinal {
 
     public void makeTracks(ArrayList list) {
 	Iterator it = list.iterator() ;
-        for (int i = 0; i < 16; i++){
+        for (int i = 0; i < 16; i++){    
 	    Integer num = (Integer) it.next() ;
 	    if (num != null) {
 		int numKey = num.intValue() ;                       
