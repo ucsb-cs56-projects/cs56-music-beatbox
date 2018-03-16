@@ -1,6 +1,6 @@
 Add music visualizer. Issue is aproved for 350 points.
 -
-https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/6
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/30
 
 Add picture of the instruments. Issue is aproved for 75 points.
 -
