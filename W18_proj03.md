@@ -10,3 +10,8 @@ Add sample beats. Issue is aproved for 150 points.
 -
 https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/29
 
+Add Button to each instrument to play sample. Issue is aproved for 100 points.
+-
+https://github.com/ucsb-cs56-projects/cs56-music-beatbox/issues/27
+
+Total issue points: 675
