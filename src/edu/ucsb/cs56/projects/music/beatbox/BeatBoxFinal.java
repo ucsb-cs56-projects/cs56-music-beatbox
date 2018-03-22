@@ -48,7 +48,7 @@ public class BeatBoxFinal {
                     }
                 } // close inner loop
                 makeTracks(trackList) ;
-                track.add(makeEvent(176,1,127,0,16));   // self-made code
+                track.add(makeEvent(176,1,127,0,16));   
             } // close outer loop
         track.add(makeEvent(192, 9,1,0, 15) ) ; // - so we always go to full 16 beats
         try {
@@ -105,9 +105,9 @@ public class BeatBoxFinal {
 	JButton start = new JButton("       Start       ") ;
 	start.addActionListener(new MyStartListener() ) ;
 	buttonBox.add(start) ;
-    float tempoFactor = sequencer.getTempoInBPM();
-    String tempo = "Default Tempo in BPM: " + Float.toString(sequencer.getTempoInBPM());
-    DisplayTempo = new JTextArea(tempo);
+    	float tempoFactor = sequencer.getTempoInBPM();
+   	String tempo = "Default Tempo in BPM: " + Float.toString(sequencer.getTempoInBPM());
+   	DisplayTempo = new JTextArea(tempo);
         
 		
 	JButton stop = new JButton("       Stop        ") ;
@@ -119,19 +119,16 @@ public class BeatBoxFinal {
 	JButton downTempo = new JButton("Tempo Down ") ;
 	downTempo.addActionListener(new MyDownTempoListener() ) ;
 	buttonBox.add(downTempo) ;
-    JButton ResetBox = new JButton("   Reset Box   ");
-    ResetBox.addActionListener(new MyResetBoxListener() );
-    buttonBox.add(ResetBox);
-    JButton ResetTemp = new JButton("  Reset Temp ");
-    ResetTemp.addActionListener(new MyResetTempListener() );
-    buttonBox.add(ResetTemp);
-    JButton CopyBox = new JButton("    CopyBox    ");
-    CopyBox.addActionListener(new MyCopyBoxListener() );
-    buttonBox.add(CopyBox);
-    buttonBox.add(DisplayTempo);
-        
-    
-    
+    	JButton ResetBox = new JButton("   Reset Box   ");
+    	ResetBox.addActionListener(new MyResetBoxListener() );
+    	buttonBox.add(ResetBox);
+    	JButton ResetTemp = new JButton("  Reset Temp ");
+    	ResetTemp.addActionListener(new MyResetTempListener() );
+    	buttonBox.add(ResetTemp);
+    	JButton CopyBox = new JButton("    CopyBox    ");
+    	CopyBox.addActionListener(new MyCopyBoxListener() );
+    	buttonBox.add(CopyBox);
+    	buttonBox.add(DisplayTempo);     
 	background.add(BorderLayout.EAST, buttonBox) ;
 	theFrame.getContentPane().add(background) ;         
 	GridBagLayout grid = new GridBagLayout() ;
@@ -142,24 +139,24 @@ public class BeatBoxFinal {
 	mainPanel = new JPanel(grid) ;
 	background.add(BorderLayout.CENTER, mainPanel) ;
 	for (int i = 0; i < 272; i++) {
-        if(i%16==0) {
-		con.gridy++; con.gridx = 0;
-		Label l = new Label(instrumentNames[i/16]);
-		grid.setConstraints(l, con);
-		mainPanel.add(l);
+        	if(i%16==0) {
+			con.gridy++; con.gridx = 0;
+			Label l = new Label(instrumentNames[i/16]);
+			grid.setConstraints(l, con);
+			mainPanel.add(l);
+			con.gridx++;
+	   	 }
+		JCheckBox c = new JCheckBox() ;
+		c.setSelected(false) ;
+		checkboxList.add(c) ;
+		grid.setConstraints(c, con);
+		mainPanel.add(c) ;
 		con.gridx++;
-	    }
-	    JCheckBox c = new JCheckBox() ;
-	    c.setSelected(false) ;
-	    checkboxList.add(c) ;
-	    grid.setConstraints(c, con);
-	    mainPanel.add(c) ;
-	    con.gridx++;
 	} // end loop
-    for(int i = 0 ; i < 16; i++){
-    JCheckBox jcbox = (JCheckBox) checkboxList.get(i);
-    jcbox.setEnabled(false);
-    }
+    	for(int i = 0 ; i < 16; i++){
+    		JCheckBox jcbox = (JCheckBox) checkboxList.get(i);
+    		jcbox.setEnabled(false);
+    	}
         
 	theFrame.setBounds(50,50, 300, 300) ;
 	theFrame.pack() ;
@@ -276,11 +273,6 @@ public class BeatBoxFinal {
         }
 
         public void go(){
-            /*try{
-                Thread.sleep(20);
-            }catch(InterruptedException ex){
-                ex.printStackTrace();
-            }*/
             doMore();
         }
             
@@ -293,6 +285,12 @@ public class BeatBoxFinal {
                     checkboxList.get(i).setSelected(false);
                     }
                 }
+			    theFrame.repaint();
+				Toolkit.getDefaultToolkit().sync(); // this REALLY forces the repaint
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+				}
             }
         }
     }
@@ -308,13 +306,13 @@ public class BeatBoxFinal {
 	 */
 
         public void actionPerformed(ActionEvent a) {
-	    sequencer.stop() ;
-        for(int i = 1; i < 17; i++){
-            for(int j = 0; j < 16; j++){
-                JCheckBox box = (JCheckBox) checkboxList.get(j + (i*16));
-                box.removeActionListener(more);
-            }
-        }
+		sequencer.stop() ;
+        	for(int i = 1; i < 17; i++){
+            		for(int j = 0; j < 16; j++){
+                		JCheckBox box = (JCheckBox) checkboxList.get(j + (i*16));
+                		box.removeActionListener(more);
+            		}
+       		}
 	} // close actionPerformed
     } // close inner class
 
@@ -354,11 +352,11 @@ public class BeatBoxFinal {
 	 */
 
 	public void actionPerformed(ActionEvent a) {
-	    float tempoFactor = sequencer.getTempoFactor() ;
-	    sequencer.setTempoFactor((float) (tempoFactor *.97) ) ;
-        float temp = (float) (tempoFactor * 0.97);
-        String tempo = Float.toString(temp * sequencer.getTempoInBPM());
-        DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
+	    	float tempoFactor = sequencer.getTempoFactor() ;
+	    	sequencer.setTempoFactor((float) (tempoFactor *.97) ) ;
+        	float temp = (float) (tempoFactor * 0.97);
+        	String tempo = Float.toString(temp * sequencer.getTempoInBPM());
+       		DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
         }
     }
 
