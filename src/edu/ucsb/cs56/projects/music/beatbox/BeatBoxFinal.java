@@ -202,7 +202,7 @@ public class BeatBoxFinal {
 	    makeTracks(trackList) ;
         track.add(makeEvent(176,1,127,0,16));
         } // close outer loop
-        track.add(makeEvent(192, 9,1,0, 15) ) ; // - so we always go to full 16 beats  
+        track.add(makeEvent(192, 9,1,0, 15) ) ; // - so we always go to full 16 beats
         try {
 	    sequencer.setSequence(sequence) ; 
 	    sequencer.setLoopCount(sequencer.LOOP_CONTINUOUSLY) ;                   
@@ -334,9 +334,7 @@ public class BeatBoxFinal {
             sequencer.setTempoFactor((float) (tempoFactor * 1.03) ) ;
             float temp = (float) (tempoFactor * 1.03);
             String tempo = Float.toString(temp * sequencer.getTempoInBPM());
-            long t = (long) sequencer.getTickPosition();
-            String t1 = Long.toString(t);
-            DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo + "\n" +t1);
+            DisplayTempo.setText("\nUpdated Tempo in BPM: " + tempo);
 	    } // close actionPerformed
     } // close inner class
     //I personally think that a whole action should be performed in order to make the tempo faster.
