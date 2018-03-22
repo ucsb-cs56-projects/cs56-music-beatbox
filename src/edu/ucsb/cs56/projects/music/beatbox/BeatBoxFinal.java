@@ -285,6 +285,12 @@ public class BeatBoxFinal {
                     checkboxList.get(i).setSelected(false);
                     }
                 }
+			    theFrame.repaint();
+				Toolkit.getDefaultToolkit().sync(); // this REALLY forces the repaint
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+				}
             }
         }
     }
